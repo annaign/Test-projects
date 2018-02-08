@@ -1,0 +1,150 @@
+html {
+	box-sizing: border-box;
+	font-family: "Times New Roman";
+}
+
+*,
+*::after,
+*::before {
+	box-sizing: inherit;
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background-color: #ffffff;
+	color: #4c4c4c;
+}
+
+.container {
+	min-height: 100%;
+	margin: 0 auto;
+	padding: 20px 30px;
+}
+
+.searchArea {
+	float: right;
+	font-size: 16px;
+}
+
+.searchArea input[type="search"] {
+	font-size: 16px;
+	outline: none;
+}
+
+.searchArea button {
+	float: right;
+	font-family: "Times New Roman";
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.employeesTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.employeesTable th {
+	padding: 10px 15px;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: left;
+	border-bottom: 2px solid #000000;
+}
+
+.employeesTable th:hover {
+	cursor: pointer;
+}
+
+.employeesTable td {
+	padding: 10px;
+	font-weight: normal;
+	font-size: 16px;
+	text-align: left;
+	border-bottom: 1px solid #dadada;
+}
+
+.employeesTable td:nth-child(4),
+.employeesTable td:nth-child(6) {
+	text-align: right;
+}
+
+.employeesTable tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+.employeesTable tr:last-child td {
+	border-bottom: 2px solid #000000;
+}
+
+.employeesTable tr:hover td {
+	background-color: lightyellow;
+}
+
+.clearPagination {
+	height: 45px;
+}
+
+.pagination {
+	float: right;
+	margin: 0 auto;
+	margin-top: -45px;
+	padding: 0 30px;
+	height: 45px;
+}
+
+.buttons {
+	height: 36px;
+}
+
+a.bthPagination {
+	display: inline-block;
+	padding: 8px 16px;
+	height: 100%;
+	font-size: 16px;
+	text-decoration: none;
+	color: black;
+	border: 1px solid #ffffff;
+}
+
+a.bthPagination:hover {
+	border: 1px solid #a9a9a9;
+}
+
+a.btnFocus {
+	background-color: #f7f7f7;
+	border: 1px solid #a9a9a9;
+}
+
+.btnSort {
+	float: right;
+	position: relative;
+}
+
+.up {
+	display: inline-block;
+	position: absolute;
+	float: right;
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 10px solid #dbdbdb;
+}
+
+.down {
+	display: inline-block;
+	/*	position: absolute;*/
+	float: right;
+	margin-top: 12px;
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 10px solid #dbdbdb;
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Table</title>
+	<link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+	<div class="container">
+
+		<div class="searchArea">
+			<form id="js-form">
+				<label>Search: <input type="search" id="js-dataFiltration" onkeyup="searchInTable()" autofocus></label>
+				<button type="submit">search</button>
+			</form>
+		</div>
+
+		<table class="employeesTable">
+			<thead id="js-head">
+				<tr>
+					<th onclick="sort(0)">Name
+						<div class="btnSort">
+							<div class="up"></div>
+							<div class="down"></div>
+						</div>
+					</th>
+					<th onclick="sort(1)">Position
+						<div class="btnSort">
+							<div class="up"></div>
+							<div class="down"></div>
+						</div>
+					</th>
+					<th onclick="sort(2)">Office
+						<div class="btnSort">
+							<div class="up"></div>
+							<div class="down"></div>
+						</div>
+					</th>
+					<th onclick="sort(3)">Age
+						<div class="btnSort">
+							<div class="up"></div>
+							<div class="down"></div>
+						</div>
+					</th>
+					<th onclick="sort(4)">Start date
+						<div class="btnSort">
+							<div class="up"></div>
+							<div class="down"></div>
+						</div>
+					</th>
+					<th onclick="sort(5)">Salary
+						<div class="btnSort">
+							<div class="up"></div>
+							<div class="down"></div>
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody id="js-tbody">
+				<!--
+			<tr>
+				<td>Thor Walton</td>
+				<td>Developer</td>
+				<td>New York</td>
+				<td>61</td>
+				<td>2013/08/11</td>
+				<td>$98,540</td>
+			</tr>
+			<tr>
+				<td>Quinn Flynn</td>
+				<td>Support Lead</td>
+				<td>Edinburg</td>
+				<td>22</td>
+				<td>2013/03/03</td>
+				<td>$342,000</td>
+			</tr>
+			<tr>
+				<td>Jennifer Acosta</td>
+				<td>Junior Javascript Developer</td>
+				<td>Edinburg</td>
+				<td>43</td>
+				<td>2013/02/01</td>
+				<td>$75,650</td>
+			</tr>
+			<tr>
+				<td>Haley Kennedy</td>
+				<td>Senior Marketing Designer</td>
+				<td>London</td>
+				<td>43</td>
+				<td>2012/12/18</td>
+				<td>$313,500</td>
+			</tr>
+			<tr>
+				<td>Brielle Williamson</td>
+				<td>Integration Specialist</td>
+				<td>New York</td>
+				<td>61</td>
+				<td>2012/12/02</td>
+				<td>$372,000</td>
+			</tr>
+			<tr>
+				<td>Michael Silva</td>
+				<td>Marketing Designer</td>
+				<td>London</td>
+				<td>66</td>
+				<td>2012/11/27</td>
+				<td>$198,500</td>
+			</tr>
+			<tr>
+				<td>Bradley Greer</td>
+				<td>Software Engineer</td>
+				<td>London</td>
+				<td>41</td>
+				<td>2012/10/13</td>
+				<td>$132,000</td>
+			</tr>
+			<tr>
+				<td>Dai Rios</td>
+				<td>Personnel Lead</td>
+				<td>Edinburg</td>
+				<td>35</td>
+				<td>2012/09/26</td>
+				<td>$217,500</td>
+			</tr>
+			<tr>
+				<td>Herrod Chandler</td>
+				<td>Sales Assistant</td>
+				<td>San Francisco</td>
+				<td>59</td>
+				<td>2012/08/06</td>
+				<td>$137,500</td>
+			</tr>
+			<tr>
+				<td>Zorita Serrano</td>
+				<td>Software Engineer</td>
+				<td>San Francisco</td>
+				<td>56</td>
+				<td>2012/06/01</td>
+				<td>$115,000</td>
+			</tr>
+-->
+			</tbody>
+		</table>
+
+		<div class="clearPagination"></div>
+	</div>
+
+	<div class="pagination">
+		<form id="js-paginationForm">
+			<div class="buttons">
+				<a href="#" class="bthPagination">&laquo; Previous</a>
+				<a href="#" class="bthPagination btnFocus">1</a>
+				<a href="#" class="bthPagination">2</a>
+				<a href="#" class="bthPagination">3</a>
+				<a href="#" class="bthPagination">4</a>
+				<a href="#" class="bthPagination">5</a>
+				<a href="#" class="bthPagination">6</a>
+				<a href="#" class="bthPagination">Next &raquo;</a>
+			</div>
+		</form>
+	</div>
+
+	<script src="data.json"></script>
+	<script src="./index.js"></script>
+
+</body>
+
+</html>
