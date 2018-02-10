@@ -24,8 +24,9 @@ var maxPage = 6; //пагинация: максимум 6 страниц
 
 
 function readData() {
+	
 	try {
-		baseData = JSON.parse(employeesDataJSON, function (key, value) {
+		baseData = JSON.parse(JSON.stringify(employeesDataJSON), function (key, value) {
 			if (key === 'Start date') {
 				return new Date(value);
 			}
