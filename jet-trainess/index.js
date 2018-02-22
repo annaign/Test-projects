@@ -88,7 +88,8 @@ function formatDate(date) {
 	return yyyy + '/' + mm + '/' + dd;
 }
 
-function sortInTable(column) {
+function sortInTable(e) {
+	let column = e.target.cellIndex;
 	let tableHead = document.getElementsByTagName('th');
 	let tableBody = document.getElementById('js-tbody').children;
 
@@ -273,7 +274,8 @@ function createPaginationButtons() {
 			numPages--;
 		}
 		for (let i = numPages + 1; i <= buttons.children.length - 2;) {
-			buttons.children[i].remove();
+			buttons.children[i].parentNode.removeChild(buttons.children[i]);
+//			buttons.children[i].remove();
 		}
 
 		//поменять номера всех кнопок
@@ -322,6 +324,13 @@ ready(function () {
 
 	readData(); //прочитать данные из файла
 	fillTable(); //заполнить таблицу
+	
+	//добавить сотрировку по столбцам
+	var tableColumns = document.getElementById('js-head').children[0].children;
+	
+	for (let i = 0; i < tableColumns.length; i++) {
+		tableColumns[i].onclick = sortInTable;
+	}
 
 	//реагировать на нажатие кнопки "search"
 	var form = document.getElementById("js-form");
