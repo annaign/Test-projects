@@ -24,7 +24,7 @@ var maxPage = 6; //пагинация: максимум 6 страниц
 
 
 function readData() {
-	
+
 	try {
 		baseData = JSON.parse(JSON.stringify(employeesDataJSON), function (key, value) {
 			if (key === 'Start date') {
@@ -260,29 +260,64 @@ function createPaginationButtons() {
 
 	//создание необходимого количества кнопок
 	if (numButtons < numPages) {
+		let newBtn = buttons.lastElementChild;
 		for (let i = numButtons + 1; i <= numPages; i++) {
-			let newBtn = buttons.lastElementChild;
-			newBtn.insertAdjacentHTML('beforeBegin', '<a href="#" class="btnPagination">0</a> ')
+			newBtn.insertAdjacentHTML('beforebegin', '<a href="#" class="btnPagination">0</a> ')
 		}
-		//поменять номера всех кнопок
-		for (let i = 1; i <= buttons.children.length - 2; i++) {
-			buttons.children[i].innerHTML = i.toString();
-		}
+
+		updateButtonsNumbers(1);
 
 	} else if (numButtons > numPages) {
-		if (numPages > 1) {
-			numPages--;
-		}
-		for (let i = numPages + 1; i <= buttons.children.length - 2;) {
+		for (let i = numPages + 1; i < buttons.children.length - 1;) {
 			buttons.children[i].parentNode.removeChild(buttons.children[i]);
-//			buttons.children[i].remove();
+			//			buttons.children[i].remove();
 		}
 
-		//поменять номера всех кнопок
-		for (let i = 1; i <= buttons.children.length - 2; i++) {
-			buttons.children[i].innerHTML = i.toString();
+		updateButtonsNumbers(1);
+	}
+}
+
+function changePaginationButtons(e) {
+	let btnFocusNew = e.target;
+	let btnFocusOld = this.getElementsByClassName('btnFocus')[0];
+
+	if (btnFocusNew.textContent != "« Previous" && btnFocusNew.textContent != "Next »") {
+		btnFocusOld.classList.remove('btnFocus');
+		btnFocusNew.classList.add('btnFocus');
+
+	} else {
+		let tempArr = btnFocusOld.parentNode.children;
+
+		if (btnFocusNew.textContent == "« Previous") {
+
+			if (!tempArr[1].classList.contains('btnFocus')) {
+				btnFocusOld.classList.remove('btnFocus');
+				btnFocusNew = btnFocusOld.previousElementSibling.classList.add('btnFocus');
+			} else {
+				let numButton = Number(tempArr[1].textContent);
+				if (numButton > 1) {
+					updateButtonsNumbers(numButton - 1);
+				}
+			}
+
+		} else if (btnFocusNew.textContent == "Next »") {
+
+			if (!tempArr[tempArr.length - 2].classList.contains('btnFocus')) {
+				btnFocusOld.classList.remove('btnFocus');
+				btnFocusNew = btnFocusOld.nextElementSibling.classList.add('btnFocus');
+			} else {
+				let numButton = Number(tempArr[tempArr.length - 2].textContent);
+				let tempp = numberOfAllPages();
+				if (numButton < numberOfAllPages()) {
+					let buttons = document.getElementById('js-paginationForm').children[0].children;
+					let firstButton = (numButton + 1) - (buttons.length - 2) + 1;
+
+					updateButtonsNumbers(firstButton);
+				}
+			}
 		}
 	}
+	changePageData();
 }
 
 function numberOfAllPages() {
@@ -305,11 +340,15 @@ function backToFirstPage() {
 
 	currentPage = 1;
 
+	updateButtonsNumbers(currentPage);
+}
+
+function updateButtonsNumbers(firstButton) {
 	let buttons = document.getElementById('js-paginationForm').children[0].children;
 
-	//поменять номера всех кнопок
 	for (let i = 1; i < buttons.length - 1; i++) {
-		buttons[i].innerHTML = i.toString();
+		buttons[i].textContent = firstButton.toString();
+		firstButton++;
 	}
 }
 
@@ -321,81 +360,24 @@ function changePageData() {
 
 
 ready(function () {
-
 	readData(); //прочитать данные из файла
 	fillTable(); //заполнить таблицу
-	
-	//добавить сотрировку по столбцам
+
+	//добавить сортировку по столбцам
 	var tableColumns = document.getElementById('js-head').children[0].children;
-	
 	for (let i = 0; i < tableColumns.length; i++) {
 		tableColumns[i].onclick = sortInTable;
 	}
 
 	//реагировать на нажатие кнопки "search"
 	var form = document.getElementById("js-form");
-
 	form.addEventListener('submit', function (event) {
 		event.preventDefault();
 
 		searchInTable();
 	});
 
-	//пагинация
+	//изменять нумерацию страниц 
 	var form2 = document.getElementById("js-paginationForm");
-	form2.onclick = function (event) {
-
-		let btnFocusNew = event.target;
-		let btnFocusOld = this.getElementsByClassName('btnFocus')[0];
-
-		if (btnFocusNew.innerHTML != "« Previous" && btnFocusNew.innerHTML != "Next »") {
-			btnFocusOld.classList.remove('btnFocus');
-			btnFocusNew.classList.add('btnFocus');
-
-		} else {
-			let tempArr = btnFocusOld.parentElement.children;
-
-			if (btnFocusNew.innerHTML == "« Previous") {
-
-				if (!tempArr[1].classList.contains('btnFocus')) {
-					btnFocusOld.classList.remove('btnFocus');
-					btnFocusNew = btnFocusOld.previousElementSibling.classList.add('btnFocus');
-				} else {
-					let numButton = Number.parseInt(tempArr[1].innerHTML);
-					if (numButton > 1) {
-						let buttons = document.getElementById('js-paginationForm').children[0].children;
-						let counter = numButton - 1;
-
-						//поменять номера всех кнопок
-						for (let i = 1; i < buttons.length - 1; i++) {
-							buttons[i].innerHTML = counter.toString();
-							counter++;
-						}
-					}
-				}
-
-			} else if (btnFocusNew.innerHTML == "Next »") {
-
-				if (!tempArr[tempArr.length - 2].classList.contains('btnFocus')) {
-					btnFocusOld.classList.remove('btnFocus');
-					btnFocusNew = btnFocusOld.nextElementSibling.classList.add('btnFocus');
-				} else {
-					let numButton = Number.parseInt(tempArr[tempArr.length - 2].innerHTML);
-					if (numButton < numberOfAllPages()) {
-						let buttons = document.getElementById('js-paginationForm').children[0].children;
-						let counter = (numButton + 1) - (buttons.length - 2) + 1;
-
-						//поменять номера всех кнопок
-						for (let i = 1; i < buttons.length - 1; i++) {
-							buttons[i].innerHTML = counter.toString();
-							counter++;
-						}
-					}
-				}
-			}
-		}
-		changePageData();
-
-	};
-
+	form2.onclick = changePaginationButtons;
 });
