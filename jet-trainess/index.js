@@ -1,17 +1,7 @@
 'use strict';
 
-function ready(fn) {
-	if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
-		fn();
-	} else {
-		document.addEventListener('DOMContentLoaded', fn);
-	}
-}
-
 var baseData;
-var filteredData = {
-	employees: []
-};
+var filteredData = [];
 var tableData; //ссылка на текущие данные (исходные данные или отфильтрованные)
 
 var sortedColumn = -1;
@@ -47,13 +37,13 @@ function fillTable() {
 	let begin = linesPerPage * (currentPage - 1);
 	let end = linesPerPage * currentPage;
 
-	if (tableData.employees.length < end) {
-		end = tableData.employees.length;
+	if (tableData.length < end) {
+		end = tableData.length;
 	}
 
 	//формирование таблицы
 	for (let i = begin; i < end; i++) {
-		let employee = tableData.employees[i];
+		let employee = tableData[i];
 
 		let temp = '<tr><td>' + employee['Name'] + '</td><td>' +
 			employee['Position'] + '</td><td>' +
@@ -97,7 +87,7 @@ function sortInTable(e) {
 	if (sortedColumn != column) {
 		switch (column) {
 			case 0:
-				tableData.employees.sort(function (value1, value2) {
+				tableData.sort(function (value1, value2) {
 					let str1 = value1.Name.toLowerCase();
 					let str2 = value2.Name.toLowerCase();
 
@@ -107,7 +97,7 @@ function sortInTable(e) {
 				});
 				break;
 			case 1:
-				tableData.employees.sort(function (value1, value2) {
+				tableData.sort(function (value1, value2) {
 					let str1 = value1.Position.toLowerCase();
 					let str2 = value2.Position.toLowerCase();
 
@@ -117,7 +107,7 @@ function sortInTable(e) {
 				});
 				break;
 			case 2:
-				tableData.employees.sort(function (value1, value2) {
+				tableData.sort(function (value1, value2) {
 					let str1 = value1.Office.toLowerCase();
 					let str2 = value2.Office.toLowerCase();
 
@@ -127,17 +117,17 @@ function sortInTable(e) {
 				});
 				break;
 			case 3:
-				tableData.employees.sort(function (value1, value2) {
+				tableData.sort(function (value1, value2) {
 					return value2.Age - value1.Age;
 				});
 				break;
 			case 4:
-				tableData.employees.sort(function (value1, value2) {
+				tableData.sort(function (value1, value2) {
 					return value2["Start date"].valueOf() - value1["Start date"].valueOf();
 				});
 				break;
 			case 5:
-				tableData.employees.sort(function (value1, value2) {
+				tableData.sort(function (value1, value2) {
 					return value2.Salary - value1.Salary;
 				});
 				break;
@@ -186,7 +176,7 @@ function sortInTable(e) {
 	}
 
 	//поменять направление сортировки
-	tableData.employees.reverse();
+	tableData.reverse();
 
 	backToFirstPage();
 	fillTable();
@@ -221,10 +211,10 @@ function searchInTable() {
 
 	//Отфильтрованные данные для таблицы
 	if (filter != "") {
-		filteredData.employees = []; //обнуление массива для отфильтрованных данных
+		filteredData = []; //обнуление массива для отфильтрованных данных
 
-		for (let i = 0; i < baseData.employees.length; i++) {
-			let employee = baseData.employees[i];
+		for (let i = 0; i < baseData.length; i++) {
+			let employee = baseData[i];
 
 			for (let element in employee) {
 				let text;
@@ -235,7 +225,7 @@ function searchInTable() {
 				}
 
 				if (text.indexOf(filter) !== -1) {
-					filteredData.employees.push(employee);
+					filteredData.push(employee);
 					break;
 				}
 			}
@@ -279,7 +269,7 @@ function createPaginationButtons() {
 
 function changePaginationButtons(e) {
 	let btnFocusNew = e.target;
-	let btnFocusOld = this.getElementsByClassName('btnFocus')[0];
+	let btnFocusOld = this.parentNode.getElementsByClassName('btnFocus')[0];
 
 	if (btnFocusNew.textContent != "« Previous" && btnFocusNew.textContent != "Next »") {
 		btnFocusOld.classList.remove('btnFocus');
@@ -321,10 +311,10 @@ function changePaginationButtons(e) {
 }
 
 function numberOfAllPages() {
-	if (tableData.employees.length < 2) {
+	if (tableData.length < 2) {
 		return 1;
 	}
-	return Math.ceil(tableData.employees.length / linesPerPage);
+	return Math.ceil(tableData.length / linesPerPage);
 }
 
 function countPaginationButtons() {
@@ -348,6 +338,7 @@ function updateButtonsNumbers(firstButton) {
 
 	for (let i = 1; i < buttons.length - 1; i++) {
 		buttons[i].textContent = firstButton.toString();
+		buttons[i].onclick = changePaginationButtons;
 		firstButton++;
 	}
 }
@@ -359,7 +350,7 @@ function changePageData() {
 }
 
 
-ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
 	readData(); //прочитать данные из файла
 	fillTable(); //заполнить таблицу
 
@@ -378,6 +369,8 @@ ready(function () {
 	});
 
 	//изменять нумерацию страниц 
-	var form2 = document.getElementById("js-paginationForm");
-	form2.onclick = changePaginationButtons;
+	var form2 = document.getElementById("js-paginationForm").children[0].children;
+	for (let i = 0; i < form2.length; i++) {
+		form2[i].onclick = changePaginationButtons;
+	}
 });

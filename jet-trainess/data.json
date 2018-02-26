@@ -1,5 +1,4 @@
-employeesDataJSON = {
-	"employees": [
+employeesDataJSON = [
 		{
 			"Name": "Thor Walton",
 			"Position": "Developer",
@@ -536,5 +535,4 @@ employeesDataJSON = {
 			"Start date": "2010/08/04",
 			"Salary": 300855
 		}
-	]
-};
+	];
