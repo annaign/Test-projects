@@ -1,0 +1,37 @@
+{
+	"name": "todolist2",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"scripts": {
+		"start": "npm run clean:tmp && parcel src/index.html -p 3000 --out-dir .tmp",
+		"build": "npm run lint && npm run clean && npm run build:parcel",
+		"lint": "npm run lint:js && npm run lint:css",
+		"lint-fix": "npm run lint:js:fix && npm run lint:css:fix",
+		"lint:js:fix": "eslint ./src/**/*.js --fix",
+		"lint:css:fix": "stylelint ./src/**/*.css --fix",
+		"lint:css": "stylelint --ignore-path .gitignore ./src/**/*.css",
+		"lint:js": "eslint --ignore-path .gitignore -- ./src",
+		"clean": "npm run clean:build",
+		"clean:tmp": "rimraf ./.tmp",
+		"clean:build": "rimraf ./build",
+		"build:parcel": "parcel build src/index.html --out-dir build --no-cache"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.6.1",
+		"babel-preset-react": "^6.24.1",
+		"eslint": "^4.18.1",
+		"eslint-config-airbnb": "^16.1.0",
+		"parcel-bundler": "^1.6.2"
+	},
+	"dependencies": {
+		"react": "^16.2.0",
+		"react-dom": "^16.2.0"
+	}
+}
