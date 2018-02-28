@@ -1,0 +1,7 @@
+body {
+  background-color: lightgrey;
+}
+.todoListBlock {
+  background-color: lightsalmon;
+  border: 1px solid gray;
+}
