@@ -12,6 +12,8 @@ var linesPerPage = 10; // 10 строк таблицы на страницу
 
 var maxPage = 6; //пагинация: максимум 6 страниц
 
+var columnsNames = ['Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'];
+
 
 function readData() {
 
@@ -45,12 +47,12 @@ function fillTable() {
 	for (let i = begin; i < end; i++) {
 		let employee = tableData[i];
 
-		let temp = '<tr><td>' + employee['Name'] + '</td><td>' +
-			employee['Position'] + '</td><td>' +
-			employee['Office'] + '</td><td>' +
-			employee['Age'] + '</td><td>' +
-			formatDate(employee['Start date']) + '</td><td>' +
-			employee['Salary'].toLocaleString('en-US', {
+		let temp = '<tr><td>' + employee[columnsNames[0]] + '</td><td>' +
+			employee[columnsNames[1]] + '</td><td>' +
+			employee[columnsNames[2]] + '</td><td>' +
+			employee[columnsNames[3]] + '</td><td>' +
+			formatDate(employee[columnsNames[4]]) + '</td><td>' +
+			employee[columnsNames[5]].toLocaleString('en-US', {
 				style: 'currency',
 				currency: 'USD'
 			}) + '</td></tr>';
@@ -87,8 +89,10 @@ function sortInTable(e) {
 	if (sortedColumn != column) {
 		switch (column) {
 			case 0:
+			case 1:
+			case 2:
 				tableData.sort(function (value1, value2) {
-					let str1 = value1.Name.toLowerCase();
+					let str1 = value1[columnsNames[column]].toLowerCase();
 					let str2 = value2.Name.toLowerCase();
 
 					if (str1 < str2) return 1;
@@ -96,39 +100,15 @@ function sortInTable(e) {
 					return 0;
 				});
 				break;
-			case 1:
-				tableData.sort(function (value1, value2) {
-					let str1 = value1.Position.toLowerCase();
-					let str2 = value2.Position.toLowerCase();
-
-					if (str1 < str2) return 1;
-					if (str1 > str2) return -1;
-					return 0;
-				});
-				break;
-			case 2:
-				tableData.sort(function (value1, value2) {
-					let str1 = value1.Office.toLowerCase();
-					let str2 = value2.Office.toLowerCase();
-
-					if (str1 < str2) return 1;
-					if (str1 > str2) return -1;
-					return 0;
-				});
-				break;
 			case 3:
+			case 5:
 				tableData.sort(function (value1, value2) {
-					return value2.Age - value1.Age;
+					return value2[columnsNames[column]] - value1[columnsNames[column]];
 				});
 				break;
 			case 4:
 				tableData.sort(function (value1, value2) {
-					return value2["Start date"].valueOf() - value1["Start date"].valueOf();
-				});
-				break;
-			case 5:
-				tableData.sort(function (value1, value2) {
-					return value2.Salary - value1.Salary;
+					return value2[columnsNames[column]].valueOf() - value1[columnsNames[column]].valueOf();
 				});
 				break;
 		}
@@ -218,7 +198,7 @@ function searchInTable() {
 
 			for (let element in employee) {
 				let text;
-				if (element === "Start date") {
+				if (element === columnsNames[4]) {
 					text = formatDate(employee[element]);
 				} else {
 					text = employee[element].toString().toUpperCase();
