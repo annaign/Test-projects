@@ -4,11 +4,6 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "",
-	"license": "ISC",
-	"scripts": {
 		"start": "npm run clean:tmp && parcel src/index.html -p 3000 --out-dir .tmp",
 		"build": "npm run lint && npm run clean && npm run build:parcel",
 		"lint": "npm run lint:js && npm run lint:css",
@@ -22,8 +17,12 @@
 		"clean:build": "rimraf ./build",
 		"build:parcel": "parcel build src/index.html --out-dir build --no-cache"
 	},
+	"author": "",
+	"license": "ISC",
 	"devDependencies": {
 		"babel-cli": "^6.26.0",
+		"babel-plugin-transform-class-properties": "^6.24.1",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
 		"babel-preset-env": "^1.6.1",
 		"babel-preset-react": "^6.24.1",
 		"eslint": "^4.18.1",
