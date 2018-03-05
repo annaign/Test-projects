@@ -8,8 +8,7 @@ export default class TodoApp extends React.Component {
     todoArr: [],
   };
 
-  pushNewTodo = newTodo => {
-    const todoArr = this.state.todoArr;
+  addNewTodo = newTodo => {
     newTodo.index = this.state.index;
     this.setState(prevState => {
       return {
@@ -48,7 +47,7 @@ export default class TodoApp extends React.Component {
 
     return (
       <div>
-        <TodoAppHeader pushNewTodo={this.pushNewTodo} />
+        <TodoAppHeader addNewTodo={this.addNewTodo} />
         <TodoList
           todoArr={todoArr}
           onChangeTodo={this.onChangeTodo}

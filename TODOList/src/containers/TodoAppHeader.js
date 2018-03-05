@@ -48,7 +48,7 @@ export default class TodoAppHeader extends React.Component {
           durationHours: 0,
           text: '',
         },
-        () => this.props.pushNewTodo(newTodo),
+        () => this.props.addNewTodo(newTodo),
       );
     }
   };

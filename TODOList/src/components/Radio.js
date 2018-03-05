@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Radio(props) {
-  const { id, name, value, defaultChecked, checked, onChange } = props;
+  const { id, name, value, checked, onChange } = props;
 
   return (
     <label>

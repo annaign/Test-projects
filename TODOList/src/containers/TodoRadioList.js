@@ -5,6 +5,7 @@ import priorities from '../constants';
 export default class TodoRadioList extends React.Component {
   state = {
     checked: this.props.value,
+    radioConfig: [{ label: 'All', value: 0 }].concat(priorities),
   };
 
   onChangeHandle = e => {
@@ -12,31 +13,23 @@ export default class TodoRadioList extends React.Component {
     const onChangePriority = this.props.onChangePriority;
 
     this.setState({ checked });
-
     onChangePriority(checked);
   };
 
   render() {
     const { name, value } = this.props;
+    const radioConfig = this.state.radioConfig;
 
     return (
       <div className="radioList">
-        <Radio
-          key={`${name}`}
-          id={0}
-          name={name}
-          value={'All'}
-          checked={this.state.checked == '0'}
-          onChange={this.onChangeHandle}
-        />
-        {priorities.map((element, index) => {
+        {radioConfig.map((element, index) => {
           return (
             <Radio
               key={`${index}${name}`}
-              id={index + 1}
+              id={index}
               name={name}
               value={element.label}
-              checked={this.state.checked == index + 1}
+              checked={this.state.checked == index}
               onChange={this.onChangeHandle}
             />
           );
