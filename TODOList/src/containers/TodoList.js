@@ -51,6 +51,7 @@ export default class TodoList extends React.Component {
         <TodoRadioList
           value={this.state.searchingPriority}
           name={'priority'}
+          radioConfig={[{ label: 'All', value: 0 }].concat(priorities)}          
           onChangePriority={this.onChangePriority}
         />
         <h2 className="center">TODO List</h2>

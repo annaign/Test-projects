@@ -3,22 +3,13 @@ import Radio from '../components/Radio';
 import priorities from '../constants';
 
 export default class TodoRadioList extends React.Component {
-  state = {
-    checked: this.props.value,
-    radioConfig: [{ label: 'All', value: 0 }].concat(priorities),
-  };
-
   onChangeHandle = e => {
-    const checked = e.target.id;
-    const onChangePriority = this.props.onChangePriority;
-
-    this.setState({ checked });
-    onChangePriority(checked);
+    this.props.onChangePriority(e.target.id);
   };
 
   render() {
     const { name, value } = this.props;
-    const radioConfig = this.state.radioConfig;
+    const radioConfig = this.props.radioConfig;
 
     return (
       <div className="radioList">
@@ -29,7 +20,7 @@ export default class TodoRadioList extends React.Component {
               id={index}
               name={name}
               value={element.label}
-              checked={this.state.checked == index}
+              checked={index == value}
               onChange={this.onChangeHandle}
             />
           );
