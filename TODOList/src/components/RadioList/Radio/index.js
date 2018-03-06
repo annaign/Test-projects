@@ -1,10 +1,11 @@
 import React from 'react';
+import './style.css';
 
 export default function Radio(props) {
   const { id, name, value, checked, onChange } = props;
 
   return (
-    <label>
+    <label className="radioBtn">
       <input
         type="radio"
         id={id}

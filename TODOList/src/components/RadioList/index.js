@@ -1,12 +1,11 @@
 import React from 'react';
 import Radio from './Radio';
+import './style.css';
 
 export default function RadioList(props) {
-  console.log(props);
   const { name, value, radioConfig, onChangeRadio } = props;
 
   const onChangeHandle = e => {
-    console.log(e.target);
     onChangeRadio(e.target.id);
   };
 
