@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoRadioList from './TodoRadioList';
+import RadioList from '../components/RadioList';
 import TodoListItem from './TodoListItem';
 import priorities from '../constants';
 
@@ -14,7 +14,7 @@ export default class TodoList extends React.Component {
     this.setState({ searchingText: target.value });
   };
 
-  onChangePriority = checked => {
+  onChangeRadio = checked => {
     this.setState({ searchingPriority: checked });
   };
 
@@ -48,11 +48,11 @@ export default class TodoList extends React.Component {
           value={searchingText}
           onChange={this.onChangeSearch}
         />
-        <TodoRadioList
+        <RadioList
           value={this.state.searchingPriority}
           name={'priority'}
-          radioConfig={[{ label: 'All', value: 0 }].concat(priorities)}          
-          onChangePriority={this.onChangePriority}
+          radioConfig={[{ label: 'All', value: 0 }].concat(priorities)}
+          onChangeRadio={this.onChangeRadio}
         />
         <h2 className="center">TODO List</h2>
         {filteredTodoArr.map(todo => {
